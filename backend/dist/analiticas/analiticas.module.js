@@ -12,6 +12,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const analiticas_controller_1 = require("./analiticas.controller");
 const analiticas_services_1 = require("./analiticas.services");
 const analiticas_schemas_1 = require("./schemas/analiticas.schemas");
+const auth_client_module_1 = require("../clients/auth-client/auth-client.module");
 let AnaliticasModule = class AnaliticasModule {
 };
 exports.AnaliticasModule = AnaliticasModule;
@@ -24,6 +25,7 @@ exports.AnaliticasModule = AnaliticasModule = __decorate([
                 { name: analiticas_schemas_1.Producto.name, schema: analiticas_schemas_1.ProductoSchema },
                 { name: analiticas_schemas_1.Envio.name, schema: analiticas_schemas_1.EnvioSchema },
             ]),
+            auth_client_module_1.AuthClientModule,
         ],
         controllers: [analiticas_controller_1.AnaliticasController],
         providers: [analiticas_services_1.AnaliticasService],

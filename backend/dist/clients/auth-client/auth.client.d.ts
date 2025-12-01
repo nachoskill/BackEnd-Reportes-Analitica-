@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { UserDto } from './dto/user.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 export declare class AuthClient {
     private readonly httpService;
     private readonly configService;
@@ -12,4 +13,6 @@ export declare class AuthClient {
     getMe(token: string): Promise<UserDto>;
     getUserById(userId: string, token: string): Promise<UserDto>;
     userHasPermission(userId: string, permission: string, token: string): Promise<boolean>;
+    loginWithCredentials(email: string, password: string, recaptchaToken?: string): Promise<LoginResponseDto>;
+    login(): Promise<LoginResponseDto>;
 }

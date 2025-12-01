@@ -3,16 +3,12 @@ export interface UserDto {
     nombre: string;
     apellido: string;
     correo: string;
+    telefono?: string | null;
     rut: string;
     roles: string[];
     permisos: string[];
-    foto?: string;
-    telefono?: string;
     activo: boolean;
-}
-export interface AuthMeResponse extends UserDto {
-}
-export interface LoginResponse {
-    access_token: string;
-    user: UserDto;
+    foto?: string | null;
+    creado_en: Date;
+    actualizado_en: Date;
 }

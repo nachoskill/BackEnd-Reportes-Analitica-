@@ -11,9 +11,10 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_module_1 = require("./auth/auth.module");
-const users_module_1 = require("./users/users.module");
 const reportes_module_1 = require("./reportes/reportes.module");
 const analiticas_module_1 = require("./analiticas/analiticas.module");
+const auth_client_module_1 = require("./clients/auth-client/auth-client.module");
+const inventario_client_module_1 = require("./clients/inventario-client/inventario-client.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,8 +31,9 @@ exports.AppModule = AppModule = __decorate([
                     uri: configService.get('MONGODB_URI'),
                 }),
             }),
+            auth_client_module_1.AuthClientModule,
+            inventario_client_module_1.InventarioClientModule,
             auth_module_1.AuthModule,
-            users_module_1.UsersModule,
             reportes_module_1.ReportesModule,
             analiticas_module_1.AnaliticasModule,
         ],

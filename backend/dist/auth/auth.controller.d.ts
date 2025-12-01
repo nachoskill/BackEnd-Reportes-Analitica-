@@ -1,28 +1,14 @@
-import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-export declare class AuthController {
-    private readonly authService;
-    constructor(authService: AuthService);
-    login(loginDto: LoginDto): Promise<{
-        user: {
-            id: any;
-            email: any;
-            name: any;
-            lastName: any;
-            role: any;
-        };
-        access_token: string;
-    }>;
-    register(registerDto: RegisterDto): Promise<{
-        user: {
-            id: any;
-            email: any;
-            name: any;
-            lastName: any;
-            role: any;
-        };
-        access_token: string;
-    }>;
-    getProfile(req: any): Promise<import("../users/schemas/user.schema").User>;
+import { AuthClient } from '../clients/auth-client/auth.client';
+declare class LoginDto {
+    email: string;
+    password: string;
+    recaptchaToken?: string;
 }
+export declare class AuthController {
+    private readonly authClient;
+    private readonly logger;
+    constructor(authClient: AuthClient);
+    login(loginDto: LoginDto): Promise<import("../clients/auth-client/dto/login-response.dto").LoginResponseDto>;
+    me(req: any): Promise<import("../clients/auth-client/dto/user.dto").UserDto>;
+}
+export {};

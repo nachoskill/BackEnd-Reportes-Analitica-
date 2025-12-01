@@ -14,6 +14,7 @@ const reportes_services_1 = require("./reportes.services");
 const productos_schema_1 = require("./schemas/productos.schema");
 const vendedores_schema_1 = require("./schemas/vendedores.schema");
 const filtros_services_1 = require("./filtros.services");
+const auth_client_module_1 = require("../clients/auth-client/auth-client.module");
 let ReportesModule = class ReportesModule {
 };
 exports.ReportesModule = ReportesModule;
@@ -23,7 +24,8 @@ exports.ReportesModule = ReportesModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: productos_schema_1.Productos.name, schema: productos_schema_1.ProductosSchema },
                 { name: vendedores_schema_1.Vendedor.name, schema: vendedores_schema_1.VendedorSchema }
-            ])
+            ]),
+            auth_client_module_1.AuthClientModule,
         ],
         controllers: [reportes_controller_1.ReportesController],
         providers: [reportes_services_1.ReportesService, filtros_services_1.FiltrosService],

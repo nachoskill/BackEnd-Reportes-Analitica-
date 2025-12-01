@@ -3,6 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { UserDto } from './dto/user.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 
 /**
  * Cliente para el microservicio de Autenticación y Perfiles
@@ -17,7 +18,7 @@ export class AuthClient {
         private readonly httpService: HttpService,
         private readonly configService: ConfigService,
     ) {
-        this.baseUrl = this.configService.get<string>('AUTH_SERVICE_URL') || 'http://localhost:3000';
+        this.baseUrl = this.configService.get<string>('AUTH_SERVICE_URL') || 'http://localhost:3000/api';
     }
 
     /**
@@ -29,7 +30,7 @@ export class AuthClient {
 
         try {
             const response = await firstValueFrom(
-                this.httpService.get<UserDto[]>(`${this.baseUrl}/api/auth/users`, {
+                this.httpService.get<UserDto[]>(`${this.baseUrl}/users`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             );
@@ -66,7 +67,7 @@ export class AuthClient {
 
         try {
             const response = await firstValueFrom(
-                this.httpService.get<UserDto>(`${this.baseUrl}/api/auth/me`, {
+                this.httpService.get<UserDto>(`${this.baseUrl}/auth/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             );
@@ -89,7 +90,7 @@ export class AuthClient {
 
         try {
             const response = await firstValueFrom(
-                this.httpService.get<UserDto>(`${this.baseUrl}/api/auth/users/${userId}`, {
+                this.httpService.get<UserDto>(`${this.baseUrl}/auth/users/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             );
@@ -110,5 +111,77 @@ export class AuthClient {
     async userHasPermission(userId: string, permission: string, token: string): Promise<boolean> {
         const user = await this.getUserById(userId, token);
         return user.permisos?.includes(permission) || false;
+    }
+
+
+    /**
+     * Realiza login con credenciales proporcionadas (para uso del frontend)
+     * @param email - Email del usuario
+     * @param password - Contraseña del usuario
+     * @param recaptchaToken - Token de recaptcha (opcional)
+     * @returns Token de autenticación y datos del usuario
+     */
+    async loginWithCredentials(email: string, password: string, recaptchaToken?: string): Promise<LoginResponseDto> {
+        this.logger.log(`Iniciando login para usuario: ${email}`);
+
+        const recaptcha = recaptchaToken || this.configService.get<string>('AUTH_SERVICE_RECAPTCHA_TOKEN') || 'dummy-token';
+
+        try {
+            const response = await firstValueFrom(
+                this.httpService.post<LoginResponseDto>(`${this.baseUrl}/auth/login`, {
+                    correo: email,
+                    contrasena: password,
+                    recaptchaToken: recaptcha,
+                })
+            );
+
+            this.logger.log('Login exitoso para usuario desde frontend');
+            return response.data;
+        } catch (error) {
+            this.logger.error(`Error al hacer login para ${email}: ${error.message}`);
+            if (error.response) {
+                this.logger.error(`Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}`);
+            }
+            throw error;
+        }
+    }
+
+    /**
+     * Realiza login en el microservicio de autenticación
+     * Usa las credenciales configuradas en las variables de entorno
+     * @returns Token de autenticación y datos del usuario
+     */
+    async login(): Promise<LoginResponseDto> {
+        this.logger.log('Iniciando login en el microservicio de autenticación...');
+
+        // Obtener credenciales desde variables de entorno
+        const correo = this.configService.get<string>('AUTH_SERVICE_EMAIL');
+        const contrasena = this.configService.get<string>('AUTH_SERVICE_PASSWORD');
+        const recaptchaToken = this.configService.get<string>('AUTH_SERVICE_RECAPTCHA_TOKEN') || 'dummy-token';
+
+        if (!correo || !contrasena) {
+            const error = 'Credenciales de autenticación no configuradas en .env (AUTH_SERVICE_EMAIL, AUTH_SERVICE_PASSWORD)';
+            this.logger.error(error);
+            throw new Error(error);
+        }
+
+        try {
+            const response = await firstValueFrom(
+                this.httpService.post<LoginResponseDto>(`${this.baseUrl}/auth/login`, {
+                    correo,
+                    contrasena,
+                    recaptchaToken,
+                })
+            );
+
+            this.logger.log('Login exitoso en el microservicio de autenticación');
+            return response.data;
+        } catch (error) {
+            this.logger.error(`Error al hacer login: ${error.message}`);
+            if (error.response) {
+                this.logger.error(`Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}`);
+            }
+            throw error;
+        }
     }
 }

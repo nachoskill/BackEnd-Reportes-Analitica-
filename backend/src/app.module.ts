@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+// import { UsersModule } from './users/users.module';
 import { ReportesModule } from './reportes/reportes.module';
 import { AnaliticasModule } from './analiticas/analiticas.module';
+import { AuthClientModule } from './clients/auth-client/auth-client.module';
+import { InventarioClientModule } from './clients/inventario-client/inventario-client.module';
 //import { report } from 'process';
 
 @Module({
@@ -24,8 +26,10 @@ import { AnaliticasModule } from './analiticas/analiticas.module';
     }),
 
     // Módulos de la aplicación
+    AuthClientModule,
+    InventarioClientModule,
     AuthModule,
-    UsersModule,
+    // UsersModule,
     ReportesModule,
     AnaliticasModule,
   ],

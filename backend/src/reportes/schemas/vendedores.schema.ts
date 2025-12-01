@@ -17,7 +17,7 @@ export const TiendaEmbebidaSchema = SchemaFactory.createForClass(TiendaEmbebida)
 @Schema({ collection: 'vendedores' })
 export class Vendedor extends Document {
     @Prop({ required: true, unique: true })
-    id_vendedor: number; // Este es el id_usuario del vendedor
+    id_vendedor: string; // Este es el id_usuario del vendedor
 
     @Prop({ type: [TiendaEmbebidaSchema], default: [] })
     tiendas: TiendaEmbebida[];

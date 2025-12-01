@@ -32,7 +32,7 @@ let Vendedor = class Vendedor extends mongoose_2.Document {
 exports.Vendedor = Vendedor;
 __decorate([
     (0, mongoose_1.Prop)({ required: true, unique: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Vendedor.prototype, "id_vendedor", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [exports.TiendaEmbebidaSchema], default: [] }),

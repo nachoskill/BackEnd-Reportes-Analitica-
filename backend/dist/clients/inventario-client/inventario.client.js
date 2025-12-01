@@ -20,7 +20,20 @@ let InventarioClient = InventarioClient_1 = class InventarioClient {
         this.httpService = httpService;
         this.configService = configService;
         this.logger = new common_1.Logger(InventarioClient_1.name);
-        this.baseUrl = this.configService.get('INVENTARIO_SERVICE_URL') || 'http://localhost:3001';
+        this.baseUrl = this.configService.get('INVENTARIO_SERVICE_URL') || 'http://localhost:16004';
+    }
+    async getTiendas(token) {
+        this.logger.log('Obteniendo todas las tiendas...');
+        try {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/tiendas`, {
+                headers: { Authorization: `Bearer ${token}` },
+            }));
+            return response.data;
+        }
+        catch (error) {
+            this.logger.error(`Error al obtener tiendas: ${error.message}`);
+            throw error;
+        }
     }
     async getProductos(token) {
         this.logger.log('Obteniendo todos los productos...');
@@ -28,59 +41,12 @@ let InventarioClient = InventarioClient_1 = class InventarioClient {
             const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/productos`, {
                 headers: { Authorization: `Bearer ${token}` },
             }));
-            this.logger.log(`Obtenidos ${response.data.length} productos`);
             return response.data;
         }
         catch (error) {
             this.logger.error(`Error al obtener productos: ${error.message}`);
             throw error;
         }
-    }
-    async getProductoById(productoId, token) {
-        this.logger.log(`Obteniendo producto con ID: ${productoId}`);
-        try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/productos/${productoId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            }));
-            return response.data;
-        }
-        catch (error) {
-            this.logger.error(`Error al obtener producto ${productoId}: ${error.message}`);
-            throw error;
-        }
-    }
-    async getProductosByCategoria(categoria, token) {
-        this.logger.log(`Obteniendo productos de categoría: ${categoria}`);
-        try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/productos/categoria/${categoria}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            }));
-            return response.data;
-        }
-        catch (error) {
-            this.logger.error(`Error al obtener productos de categoría ${categoria}: ${error.message}`);
-            throw error;
-        }
-    }
-    async updateStock(updateStockDto, token) {
-        this.logger.log(`Actualizando stock del producto: ${updateStockDto.id_producto}`);
-        try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.patch(`${this.baseUrl}/api/productos/${updateStockDto.id_producto}/stock`, updateStockDto, { headers: { Authorization: `Bearer ${token}` } }));
-            this.logger.log(`Stock actualizado: ${response.data.stock_anterior} → ${response.data.stock_nuevo}`);
-            return response.data;
-        }
-        catch (error) {
-            this.logger.error(`Error al actualizar stock: ${error.message}`);
-            throw error;
-        }
-    }
-    async verificarStock(productoId, cantidad, token) {
-        const producto = await this.getProductoById(productoId, token);
-        return producto.stock >= cantidad;
-    }
-    async getProductosStockBajo(umbral, token) {
-        const productos = await this.getProductos(token);
-        return productos.filter(p => p.stock < umbral && p.activo);
     }
 };
 exports.InventarioClient = InventarioClient;

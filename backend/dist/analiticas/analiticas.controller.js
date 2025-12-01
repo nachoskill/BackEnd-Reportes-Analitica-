@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnaliticasController = void 0;
 const common_1 = require("@nestjs/common");
 const analiticas_services_1 = require("./analiticas.services");
+const jwt_microservice_guard_1 = require("../clients/auth-client/guards/jwt-microservice.guard");
 let AnaliticasController = class AnaliticasController {
     constructor(analiticasService) {
         this.analiticasService = analiticasService;
@@ -37,36 +38,42 @@ let AnaliticasController = class AnaliticasController {
 };
 exports.AnaliticasController = AnaliticasController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('estadisticas/estado_carrito'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnaliticasController.prototype, "getEstadoCarritos", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('estadisticas/productos_tendencia'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnaliticasController.prototype, "getTendenciaProductos", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('venta_productos'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnaliticasController.prototype, "getIngresosMensuales", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('tendencia/regiones'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnaliticasController.prototype, "getEnviosRegional", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('estadisticas/ingresos'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnaliticasController.prototype, "getKpiIngresos", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('estadisticas/Mejor_Region'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

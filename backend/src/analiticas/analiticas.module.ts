@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AnaliticasController } from './analiticas.controller';
 import { AnaliticasService } from './analiticas.services';
-import { 
-  Pago, PagoSchema, 
-  Carrito, CarritoSchema, 
-  Producto, ProductoSchema, 
-  Envio, EnvioSchema 
+import {
+  Pago, PagoSchema,
+  Carrito, CarritoSchema,
+  Producto, ProductoSchema,
+  Envio, EnvioSchema
 } from './schemas/analiticas.schemas'; // <--- Ruta actualizada
+import { AuthClientModule } from '../clients/auth-client/auth-client.module';
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import {
       { name: Producto.name, schema: ProductoSchema },
       { name: Envio.name, schema: EnvioSchema },
     ]),
+    AuthClientModule,
   ],
   controllers: [AnaliticasController],
   providers: [AnaliticasService],
 })
-export class AnaliticasModule {}
+export class AnaliticasModule { }

@@ -13,7 +13,7 @@ export declare const TiendaEmbebidaSchema: import("mongoose").Schema<TiendaEmbeb
     __v: number;
 }>;
 export declare class Vendedor extends Document {
-    id_vendedor: number;
+    id_vendedor: string;
     tiendas: TiendaEmbebida[];
 }
 export declare const VendedorSchema: import("mongoose").Schema<Vendedor, import("mongoose").Model<Vendedor, any, any, any, Document<unknown, any, Vendedor, any, {}> & Vendedor & Required<{

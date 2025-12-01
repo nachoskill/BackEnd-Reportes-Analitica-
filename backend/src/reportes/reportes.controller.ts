@@ -3,7 +3,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ReportesService } from './reportes.services';
 import { FiltroReporteDto } from './schemas/dto/filtro-reporte.dto';
 import { PaginacionDto } from './schemas/dto/paginacion.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtMicroserviceGuard } from '../clients/auth-client/guards/jwt-microservice.guard';
 import { GetUserId } from './decorators/get-user-id.decorator';
 import { Response } from 'express';
 import { Res } from '@nestjs/common';
@@ -13,7 +13,7 @@ export class ReportesController {
   constructor(private readonly reportesService: ReportesService) { }
 
   // Obtener tiendas del vendedor autenticado
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtMicroserviceGuard)
   @Get('vendedor/tiendas')
   async obtenerTiendasVendedor(@GetUserId() id_usuario: number) {
     console.log('🔑 [JWT] ID Usuario extraído del token:', id_usuario);
@@ -21,7 +21,7 @@ export class ReportesController {
   }
 
   // Obtener productos paginados con filtro por tienda
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtMicroserviceGuard)
   @Get('productos')
   async obtenerDatos(
     @GetUserId() id_usuario: number,
@@ -32,14 +32,14 @@ export class ReportesController {
     return this.reportesService.obtenerDatos(id_usuario, paginacionDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtMicroserviceGuard)
   @Get('productos/filtrados')
   async obtenerDatosConFiltros(@Query() filtros: FiltroReporteDto) {
     return this.reportesService.obtenerDatosConFiltros(filtros);
   }
 
   // Obtener reporte pdf de ventas con filtros
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtMicroserviceGuard)
   @Get('productos/pdf')
   async generarReportePDF(@Query() filtros: FiltroReporteDto, @Res() res: Response) {
     return this.reportesService.generarReportePDF(filtros, res);

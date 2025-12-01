@@ -20,12 +20,12 @@ let AuthClient = AuthClient_1 = class AuthClient {
         this.httpService = httpService;
         this.configService = configService;
         this.logger = new common_1.Logger(AuthClient_1.name);
-        this.baseUrl = this.configService.get('AUTH_SERVICE_URL') || 'http://localhost:3000';
+        this.baseUrl = this.configService.get('AUTH_SERVICE_URL') || 'http://localhost:3000/api';
     }
     async getAllUsers(token) {
         this.logger.log('Obteniendo todos los usuarios...');
         try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/auth/users`, {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/users`, {
                 headers: { Authorization: `Bearer ${token}` },
             }));
             this.logger.log(`Obtenidos ${response.data.length} usuarios`);
@@ -46,7 +46,7 @@ let AuthClient = AuthClient_1 = class AuthClient {
     async getMe(token) {
         this.logger.log('Obteniendo perfil del usuario actual...');
         try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/auth/me`, {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/auth/me`, {
                 headers: { Authorization: `Bearer ${token}` },
             }));
             this.logger.log(`Perfil obtenido: ${response.data.correo}`);
@@ -60,7 +60,7 @@ let AuthClient = AuthClient_1 = class AuthClient {
     async getUserById(userId, token) {
         this.logger.log(`Obteniendo usuario con ID: ${userId}`);
         try {
-            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/api/auth/users/${userId}`, {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/auth/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             }));
             return response.data;
@@ -73,6 +73,53 @@ let AuthClient = AuthClient_1 = class AuthClient {
     async userHasPermission(userId, permission, token) {
         const user = await this.getUserById(userId, token);
         return user.permisos?.includes(permission) || false;
+    }
+    async loginWithCredentials(email, password, recaptchaToken) {
+        this.logger.log(`Iniciando login para usuario: ${email}`);
+        const recaptcha = recaptchaToken || this.configService.get('AUTH_SERVICE_RECAPTCHA_TOKEN') || 'dummy-token';
+        try {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.post(`${this.baseUrl}/auth/login`, {
+                correo: email,
+                contrasena: password,
+                recaptchaToken: recaptcha,
+            }));
+            this.logger.log('Login exitoso para usuario desde frontend');
+            return response.data;
+        }
+        catch (error) {
+            this.logger.error(`Error al hacer login para ${email}: ${error.message}`);
+            if (error.response) {
+                this.logger.error(`Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}`);
+            }
+            throw error;
+        }
+    }
+    async login() {
+        this.logger.log('Iniciando login en el microservicio de autenticación...');
+        const correo = this.configService.get('AUTH_SERVICE_EMAIL');
+        const contrasena = this.configService.get('AUTH_SERVICE_PASSWORD');
+        const recaptchaToken = this.configService.get('AUTH_SERVICE_RECAPTCHA_TOKEN') || 'dummy-token';
+        if (!correo || !contrasena) {
+            const error = 'Credenciales de autenticación no configuradas en .env (AUTH_SERVICE_EMAIL, AUTH_SERVICE_PASSWORD)';
+            this.logger.error(error);
+            throw new Error(error);
+        }
+        try {
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.post(`${this.baseUrl}/auth/login`, {
+                correo,
+                contrasena,
+                recaptchaToken,
+            }));
+            this.logger.log('Login exitoso en el microservicio de autenticación');
+            return response.data;
+        }
+        catch (error) {
+            this.logger.error(`Error al hacer login: ${error.message}`);
+            if (error.response) {
+                this.logger.error(`Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}`);
+            }
+            throw error;
+        }
     }
 };
 exports.AuthClient = AuthClient;

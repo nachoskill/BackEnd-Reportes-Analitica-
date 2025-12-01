@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const reportes_services_1 = require("./reportes.services");
 const filtro_reporte_dto_1 = require("./schemas/dto/filtro-reporte.dto");
 const paginacion_dto_1 = require("./schemas/dto/paginacion.dto");
-const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const jwt_microservice_guard_1 = require("../clients/auth-client/guards/jwt-microservice.guard");
 const get_user_id_decorator_1 = require("./decorators/get-user-id.decorator");
 const common_2 = require("@nestjs/common");
 let ReportesController = class ReportesController {
@@ -42,7 +42,7 @@ let ReportesController = class ReportesController {
 };
 exports.ReportesController = ReportesController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('vendedor/tiendas'),
     __param(0, (0, get_user_id_decorator_1.GetUserId)()),
     __metadata("design:type", Function),
@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReportesController.prototype, "obtenerTiendasVendedor", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('productos'),
     __param(0, (0, get_user_id_decorator_1.GetUserId)()),
     __param(1, (0, common_1.Query)()),
@@ -59,7 +59,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReportesController.prototype, "obtenerDatos", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('productos/filtrados'),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReportesController.prototype, "obtenerDatosConFiltros", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_microservice_guard_1.JwtMicroserviceGuard),
     (0, common_1.Get)('productos/pdf'),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_2.Res)()),
