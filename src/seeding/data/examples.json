@@ -1,0 +1,114 @@
+{
+  "clientes": [
+    {
+      "id_cliente": "692d30ff68b5fde54335fcf1",
+      "creado_en": "2025-12-01T06:09:03.338Z"
+    }
+  ],
+  "vendedores": [
+    {
+      "id_vendedor": "69354824f9960bc230b38139",
+      "tiendas": [
+        {
+          "id_tienda": 1,
+          "nombre_tienda": "TechStore Central"
+        },
+        {
+          "id_tienda": 2,
+          "nombre_tienda": "TechStore Norte"
+        },
+        {
+          "id_tienda": 3,
+          "nombre_tienda": "TechStore Express"
+        }
+      ]
+    }
+  ],
+  "ventas_generales": [
+    {
+      "fecha": "2025-01-03T09:15:22.456Z",
+      "ganancia": 172000
+    }
+  ],
+  "envios_region": [
+    {
+      "cantidad_envios": 33,
+      "region": "tarapaca"
+    }
+  ],
+  "descubrimiento": [
+    {
+      "tipo": "CLICK",
+      "fecha": "2025-12-02T20:42:52.000Z",
+      "detalle": "Licuadora Oster",
+      "metadata": {
+        "id_producto": "app_001"
+      }
+    },
+    {
+      "tipo": "BUSQUEDA",
+      "fecha": "2025-12-02T20:42:52.000Z",
+      "detalle": "Licuadora Oster",
+      "metadata": {
+        "id_producto": "app_001"
+      }
+    }
+  ],
+  "productos": [
+    {
+      "id_tienda": 1,
+      "productos": [
+        {
+          "id_producto": 1001,
+          "nombre": "Notebook Lenovo IdeaPad 3",
+          "categoria": "ELECTRONICA",
+          "precio": 549999.99,
+          "cantidad": 15,
+          "veces_vendido": 10,
+          "veces_buscado": 0,
+          "fecha_creacion": "2023-07-01T10:00:00.000Z"
+        },
+        {
+          "id_producto": 1002,
+          "nombre": "Monitor Samsung 24\" Full HD",
+          "categoria": "ELECTRONICA",
+          "precio": 89999.99,
+          "cantidad": 25,
+          "veces_vendido": 6,
+          "veces_buscado": 0,
+          "fecha_creacion": "2023-07-05T11:30:00.000Z"
+        },
+        {
+          "id_producto": 1003,
+          "nombre": "Teclado Mecánico Redragon K552",
+          "categoria": "ELECTRONICA",
+          "precio": 35999.99,
+          "cantidad": 40,
+          "veces_vendido": 10,
+          "veces_buscado": 0,
+          "fecha_creacion": "2023-07-10T09:15:00.000Z"
+        },
+        {
+          "id_producto": 1004,
+          "nombre": "Mouse Logitech G203",
+          "categoria": "ELECTRONICA",
+          "precio": 18999.99,
+          "cantidad": 50,
+          "veces_vendido": 8,
+          "veces_buscado": 0,
+          "fecha_creacion": "2023-07-12T14:20:00.000Z"
+        },
+        {
+          "id_producto": 1005,
+          "nombre": "Webcam Logitech C920",
+          "categoria": "ELECTRONICA",
+          "precio": 45999.99,
+          "cantidad": 12,
+          "veces_vendido": 3,
+          "veces_buscado": 0,
+          "fecha_creacion": "2023-07-15T16:45:00.000Z"
+        }
+      ]
+    }
+  ]
+}

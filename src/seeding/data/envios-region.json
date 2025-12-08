@@ -1,0 +1,70 @@
+[
+    {
+        "cantidad_envios": 33,
+        "region": "tarapaca"
+    },
+    {
+        "cantidad_envios": 12,
+        "region": "ohiggins"
+    },
+    {
+        "cantidad_envios": 28,
+        "region": "loslagos"
+    },
+    {
+        "cantidad_envios": 45,
+        "region": "metropolitana"
+    },
+    {
+        "cantidad_envios": 19,
+        "region": "valparaiso"
+    },
+    {
+        "cantidad_envios": 22,
+        "region": "maule"
+    },
+    {
+        "cantidad_envios": 31,
+        "region": "biobio"
+    },
+    {
+        "cantidad_envios": 8,
+        "region": "aysen"
+    },
+    {
+        "cantidad_envios": 27,
+        "region": "araucania"
+    },
+    {
+        "cantidad_envios": 14,
+        "region": "coquimbo"
+    },
+    {
+        "cantidad_envios": 36,
+        "region": "antofagasta"
+    },
+    {
+        "cantidad_envios": 5,
+        "region": "magallanes"
+    },
+    {
+        "cantidad_envios": 41,
+        "region": "losrios"
+    },
+    {
+        "cantidad_envios": 17,
+        "region": "atacama"
+    },
+    {
+        "cantidad_envios": 23,
+        "region": "nuble"
+    },
+    {
+        "cantidad_envios": 29,
+        "region": "arica"
+    },
+    {
+        "cantidad_envios": 11,
+        "region": "parinacota"
+    }
+]

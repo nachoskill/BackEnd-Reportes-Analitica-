@@ -1,0 +1,308 @@
+[
+    {
+        "id_tienda": 999991,
+        "productos": [
+            {
+                "id_producto": 99991,
+                "nombre": "Notebook Lenovo IdeaPad 3",
+                "categoria": "ELECTRONICA",
+                "precio": 549999.99,
+                "cantidad": 15,
+                "veces_vendido": 10,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-07-01T10:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99992,
+                "nombre": "Monitor Samsung 24\" Full HD",
+                "categoria": "ELECTRONICA",
+                "precio": 89999.99,
+                "cantidad": 25,
+                "veces_vendido": 6,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-07-05T11:30:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99993,
+                "nombre": "Teclado Mecánico Redragon K552",
+                "categoria": "ELECTRONICA",
+                "precio": 35999.99,
+                "cantidad": 40,
+                "veces_vendido": 10,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-07-10T09:15:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99994,
+                "nombre": "Mouse Logitech G203",
+                "categoria": "ELECTRONICA",
+                "precio": 18999.99,
+                "cantidad": 50,
+                "veces_vendido": 8,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-07-12T14:20:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99995,
+                "nombre": "Webcam Logitech C920",
+                "categoria": "ELECTRONICA",
+                "precio": 45999.99,
+                "cantidad": 12,
+                "veces_vendido": 3,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-07-15T16:45:00.000Z"
+                }
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "id_tienda": 999992,
+        "productos": [
+            {
+                "id_producto": 99996,
+                "nombre": "PlayStation 5 Digital",
+                "categoria": "ELECTRONICA",
+                "precio": 599999.99,
+                "cantidad": 8,
+                "veces_vendido": 25,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-08-01T10:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99997,
+                "nombre": "Silla Gamer Corsair T3 Rush",
+                "categoria": "HOGAR",
+                "precio": 189999.99,
+                "cantidad": 10,
+                "veces_vendido": 5,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-08-05T11:30:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99998,
+                "nombre": "Auriculares HyperX Cloud II",
+                "categoria": "ELECTRONICA",
+                "precio": 54999.99,
+                "cantidad": 30,
+                "veces_vendido": 3,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-08-10T13:15:00.000Z"
+                }
+            },
+            {
+                "id_producto": 99999,
+                "nombre": "Placa de Video RTX 3060 Ti",
+                "categoria": "ELECTRONICA",
+                "precio": 449999.99,
+                "cantidad": 5,
+                "veces_vendido": 9,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-08-15T15:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999910,
+                "nombre": "Joystick Xbox Series Wireless",
+                "categoria": "ELECTRONICA",
+                "precio": 39999.99,
+                "cantidad": 20,
+                "veces_vendido": 20,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-08-20T09:45:00.000Z"
+                }
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "id_tienda": 999993,
+        "productos": [
+            {
+                "id_producto": 999911,
+                "nombre": "Pendrive Kingston 64GB",
+                "categoria": "ELECTRONICA",
+                "precio": 4999.99,
+                "cantidad": 100,
+                "veces_vendido": 30,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-01T10:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999912,
+                "nombre": "Cable HDMI 2.0 - 2 metros",
+                "categoria": "ELECTRONICA",
+                "precio": 2999.99,
+                "cantidad": 80,
+                "veces_vendido": 50,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-05T11:30:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999913,
+                "nombre": "Mousepad XL Gamer",
+                "categoria": "ELECTRONICA",
+                "precio": 8999.99,
+                "cantidad": 60,
+                "veces_vendido": 80,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-10T13:15:00.000Z"
+                }
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "id_tienda": 999994,
+        "productos": [
+            {
+                "id_producto": 999914,
+                "nombre": "Zapatillas Nike Air Zoom Pegasus",
+                "categoria": "DEPORTES",
+                "precio": 89999.99,
+                "cantidad": 35,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-15T10:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999915,
+                "nombre": "Pelota de Fútbol Adidas Tango",
+                "categoria": "DEPORTES",
+                "precio": 24999.99,
+                "cantidad": 50,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-18T11:30:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999916,
+                "nombre": "Mancuernas Hexagonales 10kg (Par)",
+                "categoria": "DEPORTES",
+                "precio": 34999.99,
+                "cantidad": 20,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-20T13:15:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999917,
+                "nombre": "Bicicleta Mountain Bike Rodado 29",
+                "categoria": "DEPORTES",
+                "precio": 349999.99,
+                "cantidad": 8,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-22T15:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999918,
+                "nombre": "Camiseta Argentina Titular 2024",
+                "categoria": "ROPA",
+                "precio": 44999.99,
+                "cantidad": 45,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-25T09:45:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999919,
+                "nombre": "Colchoneta Yoga Premium",
+                "categoria": "DEPORTES",
+                "precio": 19999.99,
+                "cantidad": 30,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-09-28T11:20:00.000Z"
+                }
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "id_tienda": 999995,
+        "productos": [
+            {
+                "id_producto": 999920,
+                "nombre": "Zapatillas Puma Running (Outlet)",
+                "categoria": "DEPORTES",
+                "precio": 39999.99,
+                "cantidad": 25,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-10-01T10:00:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999921,
+                "nombre": "Short Deportivo Nike (Outlet)",
+                "categoria": "ROPA",
+                "precio": 14999.99,
+                "cantidad": 40,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-10-05T11:30:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999922,
+                "nombre": "Botella Térmica 1L",
+                "categoria": "DEPORTES",
+                "precio": 12999.99,
+                "cantidad": 60,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-10-08T13:15:00.000Z"
+                }
+            },
+            {
+                "id_producto": 999923,
+                "nombre": "Guantes de Boxeo 12oz",
+                "categoria": "DEPORTES",
+                "precio": 29999.99,
+                "cantidad": 15,
+                "veces_vendido": 0,
+                "veces_buscado": 0,
+                "fecha_creacion": {
+                    "$date": "2023-10-10T15:00:00.000Z"
+                }
+            }
+        ],
+        "__v": 0
+    }
+]

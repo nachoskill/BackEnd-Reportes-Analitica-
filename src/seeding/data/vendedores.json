@@ -1,0 +1,278 @@
+[
+    {
+        "id_vendedor": "692d1e59afff00e82d7eb922",
+        "__v": 1,
+        "tiendas": [
+            {
+                "id_tienda": 999991,
+                "nombre_tienda": "TechStore Central"
+            },
+            {
+                "id_tienda": 999992,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 999993,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "692d368eba7a8135d367f36b",
+        "__v": 1,
+        "tiendas": [
+            {
+                "id_tienda": 999994,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 999995,
+                "nombre_tienda": "Deportes Max Outlet"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "692d3660ba7a8135d367f367",
+        "__v": 1,
+        "tiendas": [
+            {
+                "id_tienda": 999996,
+                "nombre_tienda": "TechStore Central"
+            },
+            {
+                "id_tienda": 999997,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 999998,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999d184f5",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 999999,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 1000001,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 1000002,
+                "nombre_tienda": "TechStore Central"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999d544b2",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000003,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 1000004,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "99999999999999999992f64f",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000005,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 1000006,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999943e70",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000007,
+                "nombre_tienda": "TechStore Central"
+            },
+            {
+                "id_tienda": 1000008,
+                "nombre_tienda": "Deportes Max"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999aa6998",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000009,
+                "nombre_tienda": "TechStore Express"
+            },
+            {
+                "id_tienda": 1000010,
+                "nombre_tienda": "TechStore Central"
+            },
+            {
+                "id_tienda": 1000011,
+                "nombre_tienda": "Deportes Max"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "9999999999999999991fb48d",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000012,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 1000013,
+                "nombre_tienda": "TechStore Central"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999d5b01e",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000014,
+                "nombre_tienda": "Deportes Max Outlet"
+            },
+            {
+                "id_tienda": 1000015,
+                "nombre_tienda": "TechStore Express"
+            },
+            {
+                "id_tienda": 1000016,
+                "nombre_tienda": "TechStore Central"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "9999999999999999990637fc",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000017,
+                "nombre_tienda": "TechStore Central"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999e0b8ae",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000018,
+                "nombre_tienda": "TechStore Central"
+            },
+            {
+                "id_tienda": 1000019,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 1000020,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999f1438a",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000021,
+                "nombre_tienda": "Deportes Max Outlet"
+            },
+            {
+                "id_tienda": 1000022,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 1000023,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "99999999999999999965e821",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000024,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999d40840",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000025,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999da2c6a",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000026,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 1000027,
+                "nombre_tienda": "TechStore Express"
+            },
+            {
+                "id_tienda": 1000028,
+                "nombre_tienda": "Deportes Max Outlet"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "99999999999999999908c331",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000029,
+                "nombre_tienda": "Deportes Max"
+            },
+            {
+                "id_tienda": 1000030,
+                "nombre_tienda": "TechStore Express"
+            }
+        ]
+    },
+    {
+        "id_vendedor": "999999999999999999191b94",
+        "__v": 0,
+        "tiendas": [
+            {
+                "id_tienda": 1000031,
+                "nombre_tienda": "TechStore Express"
+            },
+            {
+                "id_tienda": 1000032,
+                "nombre_tienda": "TechStore Norte"
+            },
+            {
+                "id_tienda": 1000033,
+                "nombre_tienda": "Deportes Max Outlet"
+            }
+        ]
+    }
+]
