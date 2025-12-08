@@ -1,0 +1,46 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gpi_backend
+    environment:
+      PORT: 3350
+      MONGODB_URI: mongodb://db_mongodb:27017/gpi_database1
+      ENABLE_SEEDING: true
+    depends_on:
+      - db_mongodb
+    ports:
+      - "3350:3350"
+    networks:
+      - appnet
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gpi_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3356:80"
+    networks:
+      - appnet
+
+  db_mongodb:
+    image: mongo:7
+    container_name: db_mongodb
+    restart: unless-stopped
+    ports:
+      - "5173:27017" 
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  mongodb-data:
