@@ -8,6 +8,7 @@ import { HttpModule } from '../http/http.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtMicroserviceGuard } from './guards/jwt-microservice.guard';
 import { AuthTokenManager } from './auth-token-manager.service';
+import { AuthConnectionManager } from './auth-connection-manager.service';
 import { UserSyncService } from './user-sync.service';
 import { Vendedor, VendedorSchema } from '../../reportes/schemas/vendedores.schema';
 import { Cliente, ClienteSchema } from './schemas/clientes.schemas';
@@ -29,7 +30,7 @@ import { Cliente, ClienteSchema } from './schemas/clientes.schemas';
             { name: Cliente.name, schema: ClienteSchema },
         ]),
     ],
-    providers: [AuthClient, JwtStrategy, JwtMicroserviceGuard, AuthTokenManager, UserSyncService],
-    exports: [AuthClient, JwtMicroserviceGuard, AuthTokenManager, UserSyncService],
+    providers: [AuthClient, JwtStrategy, JwtMicroserviceGuard, AuthConnectionManager, AuthTokenManager, UserSyncService],
+    exports: [AuthClient, JwtMicroserviceGuard, AuthConnectionManager, AuthTokenManager, UserSyncService],
 })
 export class AuthClientModule { }

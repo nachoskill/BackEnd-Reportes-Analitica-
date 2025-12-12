@@ -78,8 +78,8 @@ export class AuthController {
 
         const { email, password, recaptchaToken } = loginDto;
 
-        this.logger.log(`📧 Email: ${email}`);
-        this.logger.log(`📧 Password: ${password}`);
+        // this.logger.log(`📧 Email: ${email}`);
+        // this.logger.log(`📧 Password: ${password}`);
 
         if (!email || !password) {
             throw new HttpException(

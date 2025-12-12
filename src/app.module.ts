@@ -7,6 +7,7 @@ import { ReportesModule } from './reportes/reportes.module';
 import { AnaliticasModule } from './analiticas/analiticas.module';
 import { AuthClientModule } from './clients/auth-client/auth-client.module';
 import { InventarioClientModule } from './clients/inventario-client/inventario-client.module';
+import { OrdenesClientModule } from './clients/ordenes-client/ordenes-client.module';
 import { SeedingModule } from './seeding/seeding.module';
 //import { report } from 'process';
 
@@ -29,6 +30,7 @@ import { SeedingModule } from './seeding/seeding.module';
     // Módulos de la aplicación
     AuthClientModule,
     InventarioClientModule,
+    OrdenesClientModule,
     AuthModule,
     // UsersModule,
     ReportesModule,

@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { InventarioClient } from './inventario.client';
 import { SyncService } from './inventario-sync.services';
 import { InventarioSyncScheduler } from './inventario-sync.scheduler';
+import { InventarioConnectionManager } from './inventario-connection-manager.service';
 import { HttpModule } from '../http/http.module';
 import { AuthClientModule } from '../auth-client/auth-client.module';
 import { Vendedor, VendedorSchema } from '../../reportes/schemas/vendedores.schema';
@@ -17,7 +18,7 @@ import { Productos, ProductosSchema } from '../../reportes/schemas/productos.sch
             { name: Productos.name, schema: ProductosSchema },
         ]),
     ],
-    providers: [InventarioClient, SyncService, InventarioSyncScheduler],
-    exports: [InventarioClient, SyncService],
+    providers: [InventarioClient, SyncService, InventarioConnectionManager, InventarioSyncScheduler],
+    exports: [InventarioClient, SyncService, InventarioConnectionManager],
 })
 export class InventarioClientModule { }

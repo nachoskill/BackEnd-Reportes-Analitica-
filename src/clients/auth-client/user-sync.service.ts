@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AuthClient } from './auth.client';
 import { AuthTokenManager } from './auth-token-manager.service';
+import { AuthConnectionManager } from './auth-connection-manager.service';
 import { UserDto } from './dto/user.dto';
 
 /**
@@ -23,20 +24,20 @@ export class UserSyncService implements OnModuleInit {
         @InjectModel('Cliente') private clienteModel: Model<any>,
         private readonly authClient: AuthClient,
         private readonly authTokenManager: AuthTokenManager,
+        private readonly connectionManager: AuthConnectionManager,
     ) { }
 
     /**
      * Ejecuta la sincronización al iniciar la aplicación
-     * Espera a que el token esté disponible antes de sincronizar
+     * AHORA ES NO BLOQUEANTE - espera a que la conexión esté lista
      */
     async onModuleInit() {
-        this.logger.log('🔄 Esperando token de autenticación...');
+        this.logger.log('🔄 Preparando sincronización de usuarios...');
 
-        // Esperar hasta que el token esté disponible (máximo 10 segundos)
-        await this.waitForToken(10000);
-
-        this.logger.log('🔄 Ejecutando sincronización inicial de usuarios...');
-        await this.syncUsers();
+        // Ejecutar sincronización inicial en background (NO BLOQUEANTE)
+        this.waitForConnectionAndSync().catch(error => {
+            this.logger.warn('⚠️ No se pudo realizar sincronización inicial, continuando sin ella');
+        });
 
         // Configurar sincronización automática cada 2 minutos
         this.syncInterval = setInterval(async () => {
@@ -48,24 +49,27 @@ export class UserSyncService implements OnModuleInit {
     }
 
     /**
-     * Espera hasta que el token esté disponible
-     * @param maxWaitMs Tiempo máximo de espera en milisegundos
+     * Espera a que la conexión esté lista y ejecuta la sincronización
+     * NO BLOQUEANTE - se ejecuta en background
      */
-    private async waitForToken(maxWaitMs: number = 10000): Promise<void> {
+    private async waitForConnectionAndSync(): Promise<void> {
+        const maxWaitMs = 30000; // 30 segundos máximo
         const startTime = Date.now();
 
-        while (!this.authTokenManager.getToken()) {
+        // Esperar hasta que la conexión esté establecida
+        while (!this.connectionManager.isServiceConnected()) {
             // Si pasó el tiempo máximo, salir
             if (Date.now() - startTime > maxWaitMs) {
-                this.logger.warn('⚠️ Timeout esperando token. Continuando sin sincronización inicial.');
+                this.logger.warn('⚠️ Timeout esperando conexión. Saltando sincronización inicial.');
                 return;
             }
 
-            // Esperar 100ms antes de volver a verificar
-            await new Promise(resolve => setTimeout(resolve, 100));
+            // Esperar 500ms antes de volver a verificar
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
 
-        this.logger.log('✅ Token disponible, procediendo con sincronización');
+        this.logger.log('✅ Conexión establecida, ejecutando sincronización inicial...');
+        await this.syncUsers();
     }
 
     /**

@@ -1,5 +1,6 @@
 import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { AuthClient } from './auth.client';
+import { AuthConnectionManager } from './auth-connection-manager.service';
 
 /**
  * Servicio que gestiona automáticamente el token de autenticación
@@ -18,21 +19,31 @@ export class AuthTokenManager implements OnModuleInit, OnModuleDestroy {
     // Renovar cada 20 horas (72000000 ms)
     private readonly RENEWAL_INTERVAL_MS = 20 * 60 * 60 * 1000;
 
-    constructor(private readonly authClient: AuthClient) { }
+    constructor(
+        private readonly authClient: AuthClient,
+        private readonly connectionManager: AuthConnectionManager,
+    ) { }
 
     /**
      * Se ejecuta automáticamente cuando el módulo se inicializa
+     * AHORA ES NO BLOQUEANTE - usa el connection manager
      */
     async onModuleInit() {
         this.logger.log('🔐 Iniciando gestor de tokens automático...');
 
-        // Obtener token inicial
-        await this.refreshToken();
+        // Intentar conectar en background (NO BLOQUEANTE)
+        this.connectionManager.attemptConnection(async () => {
+            // Durante la conexión inicial, lanzar errores para que el connection manager los detecte
+            await this.refreshToken(true);
+        }).catch(error => {
+            this.logger.warn('⚠️ No se pudo obtener token inicial, continuando sin autenticación externa');
+        });
 
         // Configurar renovación automática cada 20 horas
         this.renewalInterval = setInterval(async () => {
             this.logger.log('⏰ Renovando token automáticamente (cada 20 horas)...');
-            await this.refreshToken();
+            // En renovaciones automáticas, NO lanzar errores
+            await this.refreshToken(false);
         }, this.RENEWAL_INTERVAL_MS);
 
         this.logger.log(`✅ Token manager iniciado. Renovación automática cada 20 horas.`);
@@ -50,18 +61,27 @@ export class AuthTokenManager implements OnModuleInit, OnModuleDestroy {
 
     /**
      * Obtiene un nuevo token del microservicio de autenticación
+     * @param throwOnError Si es true, lanza el error en lugar de capturarlo (para conexión inicial)
      */
-    private async refreshToken(): Promise<void> {
+    private async refreshToken(throwOnError: boolean = false): Promise<void> {
         try {
             const loginResponse = await this.authClient.login();
             this.accessToken = loginResponse.access_token;
 
             this.logger.log('✅ Token obtenido y almacenado en memoria');
             this.logger.debug(`Token: ${this.accessToken.substring(0, 20)}...`);
+
+            // Marcar como conectado en el connection manager
+            this.connectionManager.markAsConnected();
         } catch (error) {
             this.logger.error(`❌ Error al obtener token: ${error.message}`);
-            // No lanzar error para evitar que la app falle al iniciar
-            // El siguiente intento será en 21 horas
+
+            // Si estamos en fase de conexión inicial, lanzar el error
+            if (throwOnError) {
+                throw error;
+            }
+            // En renovaciones automáticas, no lanzar error para evitar que la app falle
+            // El siguiente intento será en 20 horas
         }
     }
 
@@ -92,6 +112,6 @@ export class AuthTokenManager implements OnModuleInit, OnModuleDestroy {
      */
     async forceRefresh(): Promise<void> {
         this.logger.log('🔄 Forzando renovación manual del token...');
-        await this.refreshToken();
+        await this.refreshToken(false);
     }
 }

@@ -2,11 +2,16 @@ import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { CarritoDto, OrdenDto, CreateOrdenDto } from './dto/orden.dto';
+import {
+    CarritoDto,
+    AnalisisCarritosPagadosDto,
+    CarritoPagadoDto,
+    ProductosVendidosDto
+} from './dto/orden.dto';
 
 /**
  * Cliente para el microservicio de Carrito y Órdenes
- * Maneja carritos de compra y órdenes de clientes
+ * Maneja análisis de carritos pagados
  */
 @Injectable()
 export class OrdenesClient {
@@ -17,193 +22,119 @@ export class OrdenesClient {
         private readonly httpService: HttpService,
         private readonly configService: ConfigService,
     ) {
-        this.baseUrl = this.configService.get<string>('ORDENES_SERVICE_URL') || 'http://localhost:3002';
+        this.baseUrl = this.configService.get<string>('ORDENES_SERVICE_URL') || 'http://localhost:4010';
     }
 
     /**
-     * Obtiene el carrito de un usuario
-     * @param userId - ID del usuario
+     * Obtiene todos los carritos
      * @param token - JWT token de autenticación
      */
-    async getCarrito(userId: string, token: string): Promise<CarritoDto> {
-        this.logger.log(`Obteniendo carrito del usuario: ${userId}`);
+    async getAllCarritos(token: string): Promise<CarritoDto[]> {
+        this.logger.log('Obteniendo todos los carritos...');
 
         try {
             const response = await firstValueFrom(
-                this.httpService.get<CarritoDto>(`${this.baseUrl}/api/carrito/${userId}`, {
+                this.httpService.get<CarritoDto[]>(`${this.baseUrl}/api/v1/carrito/obtenerCarritos`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             );
 
-            this.logger.log(`Carrito obtenido con ${response.data.items.length} items`);
+            this.logger.log(`Obtenidos ${response.data.length} carritos`);
             return response.data;
         } catch (error) {
-            this.logger.error(`Error al obtener carrito: ${error.message}`);
+            this.logger.error(`Error al obtener carritos: ${error.message}`);
             throw error;
         }
     }
 
     /**
-     * Agrega un producto al carrito
-     * @param userId - ID del usuario
-     * @param productoId - ID del producto
-     * @param cantidad - Cantidad a agregar
+     * Obtiene el estado de pago de un carrito
+     * @param carritoId - ID del carrito
      * @param token - JWT token de autenticación
      */
-    async addToCarrito(
-        userId: string,
-        productoId: string,
-        cantidad: number,
-        token: string
-    ): Promise<CarritoDto> {
-        this.logger.log(`Agregando producto ${productoId} al carrito de ${userId}`);
-
+    async getEstadoPago(carritoId: string, token: string): Promise<string> {
         try {
             const response = await firstValueFrom(
-                this.httpService.post<CarritoDto>(
-                    `${this.baseUrl}/api/carrito/${userId}/items`,
-                    { id_producto: productoId, cantidad },
-                    { headers: { Authorization: `Bearer ${token}` } }
-                )
-            );
-
-            return response.data;
-        } catch (error) {
-            this.logger.error(`Error al agregar al carrito: ${error.message}`);
-            throw error;
-        }
-    }
-
-    /**
-     * Obtiene todas las órdenes
-     * @param token - JWT token de autenticación
-     */
-    async getOrdenes(token: string): Promise<OrdenDto[]> {
-        this.logger.log('Obteniendo todas las órdenes...');
-
-        try {
-            const response = await firstValueFrom(
-                this.httpService.get<OrdenDto[]>(`${this.baseUrl}/api/ordenes`, {
+                this.httpService.get<{ estado: string }>(`${this.baseUrl}/api/v1/ordenes/estado-pago/${carritoId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             );
 
-            this.logger.log(`Obtenidas ${response.data.length} órdenes`);
-            return response.data;
+            return response.data.estado;
         } catch (error) {
-            this.logger.error(`Error al obtener órdenes: ${error.message}`);
+            this.logger.error(`Error al obtener estado de pago del carrito ${carritoId}: ${error.message}`);
             throw error;
         }
     }
 
     /**
-     * Obtiene órdenes de un usuario específico
-     * @param userId - ID del usuario
+     * Analiza todos los carritos y obtiene información de los carritos pagados
+     * Realiza las peticiones de manera asíncrona y eficiente
      * @param token - JWT token de autenticación
      */
-    async getOrdenesByUser(userId: string, token: string): Promise<OrdenDto[]> {
-        this.logger.log(`Obteniendo órdenes del usuario: ${userId}`);
+    async analizarCarritosPagados(token: string): Promise<AnalisisCarritosPagadosDto> {
+        this.logger.log('🔍 Iniciando análisis de carritos pagados...');
 
         try {
-            const response = await firstValueFrom(
-                this.httpService.get<OrdenDto[]>(`${this.baseUrl}/api/ordenes/usuario/${userId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-            );
+            // Paso 1: Obtener todos los carritos
+            const carritos = await this.getAllCarritos(token);
+            this.logger.log(`📦 Obtenidos ${carritos.length} carritos para analizar`);
 
-            return response.data;
+            // Variables para almacenar resultados
+            const carritosPagados: CarritoPagadoDto[] = [];
+            let montoTotalPagado = 0;
+            const productosVendidos: ProductosVendidosDto = {};
+
+            // Paso 2: Verificar estado de pago de todos los carritos de manera asíncrona
+            const estadosPromises = carritos.map(async (carrito) => {
+                try {
+                    const estado = await this.getEstadoPago(carrito.id, token);
+                    return { carrito, estado };
+                } catch (error) {
+                    this.logger.warn(`⚠️ No se pudo obtener estado del carrito ${carrito.id}, asumiendo NO PAGADO`);
+                    return { carrito, estado: 'NO_PAGADO' };
+                }
+            });
+
+            // Esperar a que todas las peticiones de estado se completen
+            const resultados = await Promise.all(estadosPromises);
+
+            // Paso 3: Filtrar y acumular datos de carritos pagados
+            for (const { carrito, estado } of resultados) {
+                if (estado === 'PAGADO') {
+                    // Agregar carrito pagado
+                    carritosPagados.push({
+                        id: carrito.id,
+                        monto: carrito.total,
+                        estado: 'PAGADO',
+                        items: carrito.items
+                    });
+
+                    // Sumar monto total pagado
+                    montoTotalPagado += carrito.total;
+
+                    // Contar productos vendidos
+                    carrito.items.forEach(item => {
+                        if (!productosVendidos[item.id_producto]) {
+                            productosVendidos[item.id_producto] = 0;
+                        }
+                        productosVendidos[item.id_producto] += item.cantidad;
+                    });
+                }
+            }
+
+            this.logger.log(`✅ Análisis completado: ${carritosPagados.length} carritos pagados de ${carritos.length} totales`);
+            this.logger.log(`💰 Monto total pagado: $${montoTotalPagado.toFixed(2)}`);
+            this.logger.log(`📊 Productos únicos vendidos: ${Object.keys(productosVendidos).length}`);
+
+            return {
+                carritosPagados,
+                montoTotalPagado,
+                productosVendidos
+            };
         } catch (error) {
-            this.logger.error(`Error al obtener órdenes del usuario: ${error.message}`);
+            this.logger.error(`❌ Error al analizar carritos pagados: ${error.message}`);
             throw error;
         }
-    }
-
-    /**
-     * Obtiene una orden por ID
-     * @param ordenId - ID de la orden
-     * @param token - JWT token de autenticación
-     */
-    async getOrdenById(ordenId: string, token: string): Promise<OrdenDto> {
-        this.logger.log(`Obteniendo orden con ID: ${ordenId}`);
-
-        try {
-            const response = await firstValueFrom(
-                this.httpService.get<OrdenDto>(`${this.baseUrl}/api/ordenes/${ordenId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-            );
-
-            return response.data;
-        } catch (error) {
-            this.logger.error(`Error al obtener orden ${ordenId}: ${error.message}`);
-            throw error;
-        }
-    }
-
-    /**
-     * Crea una nueva orden
-     * @param createOrdenDto - Datos de la orden
-     * @param token - JWT token de autenticación
-     */
-    async createOrden(createOrdenDto: CreateOrdenDto, token: string): Promise<OrdenDto> {
-        this.logger.log(`Creando nueva orden para usuario: ${createOrdenDto.id_usuario}`);
-
-        try {
-            const response = await firstValueFrom(
-                this.httpService.post<OrdenDto>(
-                    `${this.baseUrl}/api/ordenes`,
-                    createOrdenDto,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                )
-            );
-
-            this.logger.log(`Orden creada con ID: ${response.data.id}`);
-            return response.data;
-        } catch (error) {
-            this.logger.error(`Error al crear orden: ${error.message}`);
-            throw error;
-        }
-    }
-
-    /**
-     * Actualiza el estado de una orden
-     * @param ordenId - ID de la orden
-     * @param estado - Nuevo estado
-     * @param token - JWT token de autenticación
-     */
-    async updateEstadoOrden(
-        ordenId: string,
-        estado: 'pendiente' | 'procesando' | 'completada' | 'cancelada',
-        token: string
-    ): Promise<OrdenDto> {
-        this.logger.log(`Actualizando estado de orden ${ordenId} a: ${estado}`);
-
-        try {
-            const response = await firstValueFrom(
-                this.httpService.patch<OrdenDto>(
-                    `${this.baseUrl}/api/ordenes/${ordenId}/estado`,
-                    { estado },
-                    { headers: { Authorization: `Bearer ${token}` } }
-                )
-            );
-
-            return response.data;
-        } catch (error) {
-            this.logger.error(`Error al actualizar estado de orden: ${error.message}`);
-            throw error;
-        }
-    }
-
-    /**
-     * Obtiene órdenes por estado
-     * @param estado - Estado de las órdenes
-     * @param token - JWT token de autenticación
-     */
-    async getOrdenesByEstado(
-        estado: 'pendiente' | 'procesando' | 'completada' | 'cancelada',
-        token: string
-    ): Promise<OrdenDto[]> {
-        const ordenes = await this.getOrdenes(token);
-        return ordenes.filter(orden => orden.estado === estado);
     }
 }

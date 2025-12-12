@@ -2222,5 +2222,135 @@
         "metadata": {
             "id_producto": "tv_001"
         }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-11T15:44:32.000Z",
+        "detalle": "Mouse Logitech MX Master",
+        "metadata": {
+            "id_producto": "comp_003"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-11T18:25:59.000Z",
+        "detalle": "iPhone 15 Pro Max",
+        "metadata": {
+            "id_producto": "tech_001"
+        }
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-11T14:55:03.000Z",
+        "detalle": "teclado mecánico",
+        "metadata": null
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-11T15:30:48.000Z",
+        "detalle": "garmin fenix",
+        "metadata": null
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-11T14:31:41.000Z",
+        "detalle": "dell xps",
+        "metadata": null
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-11T21:43:32.000Z",
+        "detalle": "dell",
+        "metadata": null
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-11T21:58:32.000Z",
+        "detalle": "Set Mancuernas 10kg",
+        "metadata": {
+            "id_producto": "fit_001"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-11T21:11:47.000Z",
+        "detalle": "Set Mancuernas 10kg",
+        "metadata": {
+            "id_producto": "fit_001"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-11T09:12:52.000Z",
+        "detalle": "Teclado Mecánico Keychron",
+        "metadata": {
+            "id_producto": "comp_002"
+        }
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-12T10:58:10.000Z",
+        "detalle": "mat de",
+        "metadata": null
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T16:53:07.000Z",
+        "detalle": "Videojuego FIFA 26",
+        "metadata": {
+            "id_producto": "gam_003"
+        }
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-12T14:03:06.000Z",
+        "detalle": "iphone 15",
+        "metadata": null
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T09:03:01.000Z",
+        "detalle": "MacBook Air M3",
+        "metadata": {
+            "id_producto": "lap_001"
+        }
+    },
+    {
+        "tipo": "BUSQUEDA",
+        "fecha": "2025-12-12T11:22:18.000Z",
+        "detalle": "cafetera nespresso",
+        "metadata": null
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T10:11:57.000Z",
+        "detalle": "Cafetera Nespresso",
+        "metadata": {
+            "id_producto": "app_002"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T10:44:49.000Z",
+        "detalle": "Apple Watch Series 9",
+        "metadata": {
+            "id_producto": "wear_001"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T20:54:38.000Z",
+        "detalle": "Set Mancuernas 10kg",
+        "metadata": {
+            "id_producto": "fit_001"
+        }
+    },
+    {
+        "tipo": "CLICK",
+        "fecha": "2025-12-12T20:48:58.000Z",
+        "detalle": "Smart TV Samsung 55''",
+        "metadata": {
+            "id_producto": "tv_001"
+        }
     }
 ]

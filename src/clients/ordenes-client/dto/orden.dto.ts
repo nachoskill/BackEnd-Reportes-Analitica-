@@ -55,3 +55,21 @@ export interface CreateOrdenDto {
     direccion_envio: DireccionDto;
     metodo_pago: string;
 }
+
+// DTOs para análisis de carritos pagados
+export interface CarritoPagadoDto {
+    id: string;
+    monto: number;
+    estado: string;
+    items: CarritoItemDto[];
+}
+
+export interface ProductosVendidosDto {
+    [productoId: string]: number;
+}
+
+export interface AnalisisCarritosPagadosDto {
+    carritosPagados: CarritoPagadoDto[];
+    montoTotalPagado: number;
+    productosVendidos: ProductosVendidosDto;
+}
